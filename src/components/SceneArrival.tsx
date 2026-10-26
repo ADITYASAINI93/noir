@@ -19,6 +19,15 @@ export const SceneArrival: React.FC<SceneArrivalProps> = ({ onEnterScroll }) => 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // Safety fallback: ensure elements are 100% visible after 2.5s even if animation is interrupted
+    const safetyTimer = setTimeout(() => {
+      if (moonWrapRef.current) moonWrapRef.current.style.opacity = '1';
+      if (logoWrapRef.current) logoWrapRef.current.style.opacity = '1';
+      if (supportingTextRef.current) supportingTextRef.current.style.opacity = '1';
+      if (scrollIndicatorRef.current) scrollIndicatorRef.current.style.opacity = '1';
+      if (hazeRef.current) hazeRef.current.style.opacity = '0.65';
+    }, 2500);
+
     if (prefersReducedMotion) {
       // Instantly reveal elements
       gsap.set([moonWrapRef.current, logoWrapRef.current, chdTextRef.current, supportingTextRef.current, scrollIndicatorRef.current, hazeRef.current], {
@@ -26,26 +35,25 @@ export const SceneArrival: React.FC<SceneArrivalProps> = ({ onEnterScroll }) => 
         y: 0,
         scale: 1,
       });
-      return;
+      return () => clearTimeout(safetyTimer);
     }
 
-    // 1. Initial State: pitch black, all hidden
-    gsap.set(moonWrapRef.current, { opacity: 0, scale: 0.85, filter: 'blur(12px)' });
-    gsap.set(logoWrapRef.current, { opacity: 0, y: 15, filter: 'blur(8px)' });
-    gsap.set(supportingTextRef.current, { opacity: 0, y: 20 });
+    // 1. Initial State: subtle fade in
+    gsap.set(moonWrapRef.current, { opacity: 0, scale: 0.9 });
+    gsap.set(logoWrapRef.current, { opacity: 0, y: 15 });
+    gsap.set(supportingTextRef.current, { opacity: 0, y: 15 });
     gsap.set(scrollIndicatorRef.current, { opacity: 0, y: 10 });
     gsap.set(hazeRef.current, { opacity: 0 });
 
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    // Step 1: 0s - completely black pause (0.4s)
-    tl.to({}, { duration: 0.4 })
-      // Step 2: Crescent moon slowly emerges from darkness
+    // Step 1: 0.1s quick pause
+    tl.to({}, { duration: 0.15 })
+      // Step 2: Crescent moon slowly emerges
       .to(moonWrapRef.current, {
         opacity: 1,
         scale: 1,
-        filter: 'blur(0px)',
-        duration: 2.0,
+        duration: 1.4,
         ease: 'power2.out',
       })
       // Gentle atmospheric haze illuminates behind
@@ -53,10 +61,10 @@ export const SceneArrival: React.FC<SceneArrivalProps> = ({ onEnterScroll }) => 
         hazeRef.current,
         {
           opacity: 0.65,
-          duration: 2.2,
+          duration: 1.5,
           ease: 'power1.inOut',
         },
-        '-=1.6'
+        '-=1.0'
       )
       // Step 3 & 4: NOIR wordmark reveals with gold reflection
       .to(
@@ -64,11 +72,10 @@ export const SceneArrival: React.FC<SceneArrivalProps> = ({ onEnterScroll }) => 
         {
           opacity: 1,
           y: 0,
-          filter: 'blur(0px)',
-          duration: 1.8,
+          duration: 1.2,
           ease: 'power3.out',
         },
-        '-=1.4'
+        '-=0.9'
       )
       // Step 5: Supporting editorial copy reveals
       .to(
@@ -76,11 +83,11 @@ export const SceneArrival: React.FC<SceneArrivalProps> = ({ onEnterScroll }) => 
         {
           opacity: 1,
           y: 0,
-          duration: 1.4,
-          stagger: 0.18,
+          duration: 1.0,
+          stagger: 0.15,
           ease: 'power2.out',
         },
-        '-=0.9'
+        '-=0.6'
       )
       // Step 6: Scroll indicator appears last
       .to(
@@ -88,13 +95,14 @@ export const SceneArrival: React.FC<SceneArrivalProps> = ({ onEnterScroll }) => 
         {
           opacity: 1,
           y: 0,
-          duration: 1.2,
+          duration: 0.8,
           ease: 'power2.out',
         },
-        '-=0.6'
+        '-=0.4'
       );
 
     return () => {
+      clearTimeout(safetyTimer);
       tl.kill();
     };
   }, []);

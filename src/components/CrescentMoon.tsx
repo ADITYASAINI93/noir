@@ -186,8 +186,50 @@ export const CrescentMoon: React.FC<CrescentMoonProps> = ({
         height: `${size}px`,
       }}
     >
+      {/* SVG Layer: Instant ultra-crisp champagne gold crescent with drop glow */}
+      <svg
+        viewBox="0 0 100 100"
+        className="w-full h-full absolute inset-0 z-0 drop-shadow-[0_0_30px_rgba(201,166,107,0.45)]"
+        style={{
+          transform: `rotate(${rotation}deg)`,
+          transformOrigin: 'center center',
+        }}
+      >
+        <defs>
+          <linearGradient id={`crescentGoldGrad-${size}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="20%" stopColor="#F4EFE5" />
+            <stop offset="45%" stopColor="#DFBE86" />
+            <stop offset="75%" stopColor="#C9A66B" />
+            <stop offset="100%" stopColor="#8A6B34" />
+          </linearGradient>
+          <radialGradient id={`coronaGlow-${size}`} cx="45%" cy="50%" r="55%">
+            <stop offset="0%" stopColor="rgba(201,166,107,0.4)" />
+            <stop offset="50%" stopColor="rgba(201,166,107,0.12)" />
+            <stop offset="100%" stopColor="rgba(5,5,5,0)" />
+          </radialGradient>
+        </defs>
+        {/* Soft Corona Halo */}
+        <circle cx="50" cy="50" r="48" fill={`url(#coronaGlow-${size})`} />
+        {/* Crescent Moon path */}
+        <path
+          d="M50 10 A40 40 0 1 0 88 68 A33 33 0 1 1 50 10 Z"
+          fill={`url(#crescentGoldGrad-${size})`}
+        />
+        {/* Specular Edge Line */}
+        <path
+          d="M50 11 A39 39 0 1 0 87 67"
+          stroke="#FFFFFF"
+          strokeWidth="0.7"
+          strokeOpacity="0.8"
+          fill="none"
+        />
+      </svg>
+
+      {/* Canvas Layer: Volumetric stardust and procedural crater textures */}
       <canvas
         ref={canvasRef}
+        className="relative z-10"
         style={{
           width: `${size * 1.5}px`,
           height: `${size * 1.5}px`,
