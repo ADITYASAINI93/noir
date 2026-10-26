@@ -63,20 +63,14 @@ export const LogoNoir: React.FC<LogoNoirProps> = ({
                 <feComposite in="SourceGraphic" in2="blur" operator="over" />
               </filter>
             </defs>
-            {/* Elegant crescent moon matching profile picture */}
-            <path
-              d="M50 10 C28 10 10 28 10 50 C10 72 28 90 50 90 C34 76 34 24 50 10 Z"
-              fill="url(#goldMoonGrad)"
-              filter="url(#softGlow)"
-            />
-            {/* Subtle inner illuminated edge */}
-            <path
-              d="M50 12 C30 13 13 29 12 50 C12 68 28 85 48 88 C34 74 34 26 50 12 Z"
-              stroke="#F4EFE5"
-              strokeWidth="0.6"
-              strokeOpacity="0.75"
-              fill="none"
-            />
+            {/* Exact circular geometric crescent matching brand identity */}
+            <mask id="logoMoonMask">
+              <rect width="100" height="100" fill="#000" />
+              <circle cx="50" cy="50" r="40" fill="#fff" />
+              <circle cx="60" cy="50" r="37.2" fill="#000" />
+            </mask>
+            <circle cx="50" cy="50" r="40" fill="url(#goldMoonGrad)" mask="url(#logoMoonMask)" filter="url(#softGlow)" />
+            <circle cx="50" cy="50" r="39.8" stroke="#FFFFFF" strokeWidth="0.8" fill="none" opacity="0.85" mask="url(#logoMoonMask)" />
           </svg>
         </div>
       )}

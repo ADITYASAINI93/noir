@@ -83,11 +83,12 @@ export const SceneFinalReveal: React.FC = () => {
       {/* Main Content Box */}
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center">
         {/* Refined Crescent Moon matching original profile picture identity */}
-        <div ref={moonRef} className="relative mb-[-2rem] sm:mb-[-3.5rem] z-10">
+        <div ref={moonRef} className="relative mb-[-1.5rem] sm:mb-[-2.5rem] z-10">
           <CrescentMoon
-            size={window.innerWidth < 640 ? 170 : 230}
-            rotation={-18}
-            glowIntensity={0.9}
+            size={220}
+            rotation={0}
+            glowIntensity={0.92}
+            className="w-36 h-36 sm:w-48 sm:h-48"
           />
         </div>
 

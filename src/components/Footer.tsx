@@ -5,12 +5,14 @@ export const Footer: React.FC = () => {
     <footer className="relative w-full border-t border-[#C9A66B]/15 bg-[#050505] py-16 sm:py-20 px-6 sm:px-12 text-center select-none overflow-hidden">
       <div className="max-w-4xl mx-auto flex flex-col items-center space-y-6">
         {/* Subtle Crescent Mark */}
-        <div className="w-4 h-4 opacity-70 mb-2">
+        <div className="w-5 h-5 opacity-80 mb-2">
           <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M50 8 A42 42 0 1 0 85 75 A34 34 0 1 1 50 8 Z"
-              fill="#C9A66B"
-            />
+            <mask id="footerMoonMask">
+              <rect width="100" height="100" fill="#000" />
+              <circle cx="50" cy="50" r="40" fill="#fff" />
+              <circle cx="60" cy="50" r="37.2" fill="#000" />
+            </mask>
+            <circle cx="50" cy="50" r="40" fill="#C9A66B" mask="url(#footerMoonMask)" />
           </svg>
         </div>
 

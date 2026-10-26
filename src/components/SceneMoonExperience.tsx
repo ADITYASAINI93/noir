@@ -12,7 +12,6 @@ export const SceneMoonExperience: React.FC = () => {
   const text1Ref = useRef<HTMLDivElement | null>(null);
   const text2Ref = useRef<HTMLDivElement | null>(null);
   const coronaAuraRef = useRef<HTMLDivElement | null>(null);
-  const moonBaseRotation = -15;
 
   useEffect(() => {
     const container = containerRef.current;
@@ -35,21 +34,20 @@ export const SceneMoonExperience: React.FC = () => {
       // 1. Initial State
       gsap.set(text1Ref.current, { opacity: 0, y: 50, filter: 'blur(10px)' });
       gsap.set(text2Ref.current, { opacity: 0, y: 50, filter: 'blur(10px)' });
-      gsap.set(coronaAuraRef.current, { opacity: 0.2, scale: 0.8 });
+      gsap.set(coronaAuraRef.current, { opacity: 0.25, scale: 0.85 });
 
       // 2. Phase 1: Moon grows in scale and halo intensifies, text 1 enters
       tl.to(moonHolderRef.current, {
         scale: 1.35,
-        x: '12%',
-        y: '-5%',
-        rotate: -8,
+        x: '10%',
+        y: '-3%',
         duration: 2,
         ease: 'power2.inOut',
       })
         .to(
           coronaAuraRef.current,
           {
-            opacity: 0.75,
+            opacity: 0.8,
             scale: 1.3,
             duration: 2,
           },
@@ -83,10 +81,9 @@ export const SceneMoonExperience: React.FC = () => {
         .to(
           moonHolderRef.current,
           {
-            scale: 1.7,
+            scale: 1.65,
             x: '-8%',
-            y: '4%',
-            rotate: -22,
+            y: '3%',
             duration: 2.2,
             ease: 'power1.inOut',
           },
@@ -95,7 +92,7 @@ export const SceneMoonExperience: React.FC = () => {
         .to(
           coronaAuraRef.current,
           {
-            opacity: 0.9,
+            opacity: 0.95,
             scale: 1.6,
             duration: 2.2,
           },
@@ -147,10 +144,10 @@ export const SceneMoonExperience: React.FC = () => {
           className="absolute z-10 flex items-center justify-center transition-transform will-change-transform"
         >
           <CrescentMoon
-            size={window.innerWidth < 640 ? 300 : window.innerWidth < 1024 ? 420 : 540}
-            rotation={moonBaseRotation}
+            size={480}
+            rotation={0}
             glowIntensity={0.95}
-            enableCraters={true}
+            className="w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] md:w-[460px] md:h-[460px]"
           />
         </div>
 

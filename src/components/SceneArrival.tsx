@@ -128,12 +128,13 @@ export const SceneArrival: React.FC<SceneArrivalProps> = ({ onEnterScroll }) => 
         {/* The Crescent Moon positioned directly above & behind the wordmark */}
         <div
           ref={moonWrapRef}
-          className="relative mb-[-2.5rem] sm:mb-[-4rem] md:mb-[-5.5rem] z-10 transition-transform duration-700"
+          className="relative mb-[-2rem] sm:mb-[-3rem] md:mb-[-4.5rem] z-10 transition-transform duration-700"
         >
           <CrescentMoon
-            size={window.innerWidth < 640 ? 190 : window.innerWidth < 1024 ? 260 : 320}
-            rotation={-18}
-            glowIntensity={0.88}
+            size={280}
+            rotation={0}
+            glowIntensity={0.92}
+            className="w-44 h-44 sm:w-64 sm:h-64 md:w-72 md:h-72"
           />
         </div>
 
