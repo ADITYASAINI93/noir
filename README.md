@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # NOIR CHD — Cinematic Luxury Coming Soon Experience
 
 > **Chandigarh After Dark. Something is coming.**  
@@ -131,3 +132,7 @@ vercel
 ---
 
 &copy; 2026 NOIR CHD. All Rights Reserved.
+=======
+# noir
+NOIR CHD — An immersive, cinematic nightlife experience featuring elegant visuals, atmospheric animations, moon-inspired aesthetics, and a premium luxury-club identity. Designed to capture the energy of Chandigarh nightlife through modern web design and interactive storytelling.
+>>>>>>> 4cb30eb6f59c3ea0d11c5fb1fde0f85c6e4a955f
