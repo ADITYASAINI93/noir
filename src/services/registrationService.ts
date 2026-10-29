@@ -71,37 +71,42 @@ export async function submitRegistration(
 
   // If Supabase is configured, store directly in PostgreSQL
   if (isSupabaseConfigured) {
-    const { data, error } = await supabase
-      .from('registrations')
-      .insert([
-        {
-          reference_id,
-          full_name: cleanName,
-          email: cleanEmail,
-          phone: cleanPhone,
-          instagram_handle: cleanInstagram ? `@${cleanInstagram}` : null,
-          registration_category: 'Guest',
-          registration_status: 'registered',
-        },
-      ])
-      .select('id, reference_id, full_name, email, phone, instagram_handle, created_at')
-      .single();
+    const { data, error } = await supabase.functions.invoke('register', {
+      body: {
+        full_name: cleanName,
+        email: cleanEmail,
+        phone: cleanPhone,
+        instagram_handle: cleanInstagram
+          ? `@${cleanInstagram}`
+          : null,
+        privacy_acknowledged: payload.privacy_acknowledged,
+      },
+    });
 
     if (error) {
-      if (error.code === '23505' && (error.message.includes('email') || error.details?.includes('email'))) {
-        throw new Error('A registration has already been submitted with this email address.');
-      }
-      throw new Error(error.message || 'Failed to submit registration. Please try again.');
+      throw new Error(
+        error.message || 'Failed to submit registration. Please try again.'
+      );
+    }
+
+    const registration = data?.registration ?? data;
+
+    if (!data?.success || !registration?.reference_id) {
+      throw new Error(
+        data?.error || 'Registration failed. Please try again.'
+      );
     }
 
     return {
       success: true,
-      reference_id: data.reference_id,
-      full_name: data.full_name,
-      email: data.email,
-      phone: data.phone,
-      instagram_handle: data.instagram_handle,
-      created_at: data.created_at,
+      reference_id: registration.reference_id,
+      full_name: registration.full_name ?? cleanName,
+      email: registration.email ?? cleanEmail,
+      phone: registration.phone ?? cleanPhone,
+      instagram_handle:
+        registration.instagram_handle ??
+        (cleanInstagram ? `@${cleanInstagram}` : null),
+      created_at: registration.created_at ?? new Date().toISOString(),
     };
   }
 
