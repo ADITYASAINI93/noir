@@ -1,5 +1,15 @@
 export type RegistrationStatus = 'registered' | 'confirmed' | 'cancelled' | 'attended';
 
+export interface UserProfile {
+  id: string;
+  full_name: string;
+  email: string;
+  phone?: string | null;
+  instagram_handle?: string | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export interface Registration {
   id: string;
   reference_id: string;

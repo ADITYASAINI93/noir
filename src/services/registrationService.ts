@@ -84,8 +84,17 @@ export async function submitRegistration(
     });
 
     if (error) {
+      let customErrorMsg = error.message;
+      try {
+        if ('context' in error && error.context) {
+          const errBody = await (error as { context: Response }).context.json();
+          if (errBody?.error) customErrorMsg = errBody.error;
+        }
+      } catch {
+        // Fallback to error.message
+      }
       throw new Error(
-        error.message || 'Failed to submit registration. Please try again.'
+        customErrorMsg || 'Failed to submit registration. Please try again.'
       );
     }
 
@@ -286,6 +295,31 @@ export async function fetchRegistrations(filters: RegistrationFilters): Promise<
     totalCount,
     totalPages,
   };
+}
+
+/**
+ * Fetch registrations belonging to a specific authenticated guest by email
+ */
+export async function fetchUserRegistrations(email: string): Promise<Registration[]> {
+  const cleanEmail = email.trim().toLowerCase();
+  if (isSupabaseConfigured) {
+    const { data, error } = await supabase
+      .from('registrations')
+      .select('*')
+      .ilike('email', cleanEmail)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.warn('Error fetching user registrations:', error);
+      return [];
+    }
+    return (data as Registration[]) || [];
+  }
+
+  // Local storage mode
+  return getLocalRegistrations().filter(
+    (r) => r.email.toLowerCase() === cleanEmail
+  );
 }
 
 /**

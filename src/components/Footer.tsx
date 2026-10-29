@@ -42,9 +42,15 @@ export const Footer: React.FC = () => {
 
         {/* Navigation, Instagram & Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between w-full pt-4 gap-4 sm:gap-0 text-[10px] sm:text-[11px] font-sans tracking-[0.35em] text-[#89847C]/70 uppercase">
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6">
             <Link to="/register" className="hover:text-[#C9A66B] transition-colors duration-300">
-              Guest Registration
+              Registration
+            </Link>
+            <Link to="/signin" className="hover:text-[#C9A66B] transition-colors duration-300">
+              Sign In
+            </Link>
+            <Link to="/signup" className="hover:text-[#C9A66B] transition-colors duration-300">
+              Sign Up
             </Link>
             <Link to="/admin/login" className="hover:text-[#C9A66B] transition-colors duration-300 opacity-60 hover:opacity-100">
               Admin Portal

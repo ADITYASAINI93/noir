@@ -54,7 +54,7 @@ serve(async (req: Request) => {
 
     // 2. Parse body
     const body = await req.json();
-    const { full_name, email, phone, registration_category, privacy_acknowledged } = body;
+    const { full_name, email, phone, instagram_handle, registration_category, privacy_acknowledged } = body;
 
     // 3. Strict validation
     if (!privacy_acknowledged) {
@@ -83,8 +83,11 @@ serve(async (req: Request) => {
     const sanitizedName = full_name.trim();
     const sanitizedEmail = email.trim().toLowerCase();
     const sanitizedPhone = phone && typeof phone === "string" ? phone.trim() : null;
-    const allowedCategories = ["VIP Guest List", "General Access", "Table Inquiry", "Media & Press"];
-    const sanitizedCategory = allowedCategories.includes(registration_category) ? registration_category : "General Access";
+    const sanitizedInstagram = instagram_handle && typeof instagram_handle === "string"
+      ? (instagram_handle.startsWith("@") ? instagram_handle.trim() : `@${instagram_handle.trim()}`)
+      : null;
+    const allowedCategories = ["VIP Guest List", "General Access", "Table Inquiry", "Media & Press", "Guest"];
+    const sanitizedCategory = allowedCategories.includes(registration_category) ? registration_category : "Guest";
 
     // 4. Generate unique luxury reference ID: NOIR-XXXXXX
     const randomHex = Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -121,10 +124,11 @@ serve(async (req: Request) => {
         full_name: sanitizedName,
         email: sanitizedEmail,
         phone: sanitizedPhone,
+        instagram_handle: sanitizedInstagram,
         registration_category: sanitizedCategory,
         registration_status: "registered", // Strict default, cannot be overridden
       })
-      .select("id, reference_id, full_name, email, phone, registration_category, created_at")
+      .select("id, reference_id, full_name, email, phone, instagram_handle, registration_category, created_at")
       .single();
 
     if (error) {

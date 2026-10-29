@@ -20,11 +20,54 @@ if (!isSupabaseConfigured) {
 const clientUrl = isSupabaseConfigured ? supabaseUrl : 'https://placeholder.supabase.co';
 const clientKey = isSupabaseConfigured ? supabasePublishableKey : 'placeholder-anon-key';
 
+export const REMEMBER_ME_KEY = 'noir_remember_me';
+
+/**
+ * Storage adapter for the single Supabase client.
+ * Dynamically switches between localStorage (Remember Me = true)
+ * and sessionStorage (Remember Me = false).
+ */
+export const dynamicAuthStorage = {
+  getItem: (key: string): string | null => {
+    try {
+      const rememberMe = localStorage.getItem(REMEMBER_ME_KEY) !== 'false';
+      if (rememberMe) {
+        return localStorage.getItem(key);
+      }
+      return sessionStorage.getItem(key) || localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  },
+  setItem: (key: string, value: string): void => {
+    try {
+      const rememberMe = localStorage.getItem(REMEMBER_ME_KEY) !== 'false';
+      if (rememberMe) {
+        localStorage.setItem(key, value);
+        sessionStorage.removeItem(key);
+      } else {
+        sessionStorage.setItem(key, value);
+        localStorage.removeItem(key);
+      }
+    } catch (e) {
+      console.warn('[NOIR CHD] Failed to write auth session storage:', e);
+    }
+  },
+  removeItem: (key: string): void => {
+    try {
+      localStorage.removeItem(key);
+      sessionStorage.removeItem(key);
+    } catch (e) {
+      console.warn('[NOIR CHD] Failed to clear auth session storage:', e);
+    }
+  },
+};
+
 export const supabase = createClient(clientUrl, clientKey, {
   auth: {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    storage: window.localStorage,
+    storage: dynamicAuthStorage,
   },
 });
