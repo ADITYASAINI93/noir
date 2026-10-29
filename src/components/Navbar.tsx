@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Volume2, VolumeX, ArrowUpRight } from 'lucide-react';
 import { luxurySound } from '../utils/audio';
 
@@ -51,8 +52,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onScrollToTop }) => {
           </span>
         </button>
 
-        {/* Right: Sound Atmosphere Toggle & INSTAGRAM ↗ */}
-        <div className="flex items-center gap-5 sm:gap-8">
+        {/* Right: Register, Sound Atmosphere Toggle & INSTAGRAM ↗ */}
+        <div className="flex items-center gap-4 sm:gap-6">
+          {/* Guest Registration Link */}
+          <Link
+            to="/register"
+            className="px-3.5 py-1.5 rounded-full border border-[#C9A66B]/50 hover:border-[#C9A66B] bg-[#C9A66B]/10 hover:bg-[#C9A66B] text-[#F4EFE5] hover:text-[#050505] transition-all duration-300 font-sans text-[10px] sm:text-[11px] uppercase tracking-[0.25em]"
+          >
+            REGISTER
+          </Link>
+
           {/* Subtle Ambient Audio Toggle */}
           <button
             onClick={toggleSound}

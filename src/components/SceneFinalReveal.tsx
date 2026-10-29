@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Instagram, ArrowRight } from 'lucide-react';
+import { Instagram, ArrowRight, Sparkles } from 'lucide-react';
 import { CrescentMoon } from './CrescentMoon';
 import { LogoNoir } from './LogoNoir';
 
@@ -83,11 +84,12 @@ export const SceneFinalReveal: React.FC = () => {
       {/* Main Content Box */}
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center">
         {/* Refined Crescent Moon matching original profile picture identity */}
-        <div ref={moonRef} className="relative mb-[-2rem] sm:mb-[-3.5rem] z-10">
+        <div ref={moonRef} className="relative mb-[-1.5rem] sm:mb-[-2.5rem] z-10">
           <CrescentMoon
-            size={window.innerWidth < 640 ? 170 : 230}
-            rotation={-18}
-            glowIntensity={0.9}
+            size={220}
+            rotation={0}
+            glowIntensity={0.92}
+            className="w-36 h-36 sm:w-48 sm:h-48"
           />
         </div>
 
@@ -117,29 +119,34 @@ export const SceneFinalReveal: React.FC = () => {
           </p>
         </div>
 
-        {/* Luxury CTA Button: FOLLOW THE UNKNOWN */}
+        {/* Luxury CTA Buttons: REGISTER & FOLLOW THE UNKNOWN */}
         <div className="flex flex-col items-center gap-4">
-          <a
-            ref={buttonRef}
-            href="https://www.instagram.com/noir.chd/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative inline-flex items-center gap-3 px-8 sm:px-12 py-4 sm:py-4.5 rounded-full border border-[#C9A66B]/50 hover:border-[#C9A66B] bg-[#0E0E0E]/80 backdrop-blur-sm text-[#F4EFE5] hover:text-[#050505] transition-all duration-500 ease-out overflow-hidden gold-glow-subtle gold-glow-hover"
-          >
-            {/* Shimmer background on hover */}
-            <span className="absolute inset-0 bg-gradient-to-r from-[#DFBE86] via-[#C9A66B] to-[#A8874F] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            {/* Primary Action: Guest Registration */}
+            <Link
+              to="/register"
+              className="group relative inline-flex items-center gap-3 px-8 sm:px-10 py-4 rounded-full border border-[#C9A66B] bg-[#C9A66B] text-[#050505] hover:bg-[#DFBE86] transition-all duration-300 shadow-[0_0_25px_rgba(201,166,107,0.3)] font-sans text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase"
+            >
+              <Sparkles className="w-4 h-4 text-[#050505]" />
+              <span>REQUEST GUEST ACCESS</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
 
-            {/* Icon */}
-            <Instagram className="relative z-10 w-4 h-4 text-[#C9A66B] group-hover:text-[#050505] transition-colors duration-500" />
-
-            {/* Label */}
-            <span className="relative z-10 font-sans text-xs sm:text-sm font-medium tracking-[0.35em] uppercase">
-              FOLLOW THE UNKNOWN
-            </span>
-
-            {/* Arrow */}
-            <ArrowRight className="relative z-10 w-4 h-4 text-[#C9A66B] group-hover:text-[#050505] transition-transform duration-500 group-hover:translate-x-1" />
-          </a>
+            {/* Secondary Action: Follow on Instagram */}
+            <a
+              ref={buttonRef}
+              href="https://www.instagram.com/noir.chd/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-flex items-center gap-3 px-8 sm:px-10 py-4 rounded-full border border-[#C9A66B]/50 hover:border-[#C9A66B] bg-[#0E0E0E]/80 backdrop-blur-sm text-[#F4EFE5] hover:text-[#050505] transition-all duration-500 ease-out overflow-hidden gold-glow-subtle gold-glow-hover"
+            >
+              <span className="absolute inset-0 bg-gradient-to-r from-[#DFBE86] via-[#C9A66B] to-[#A8874F] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
+              <Instagram className="relative z-10 w-4 h-4 text-[#C9A66B] group-hover:text-[#050505] transition-colors duration-500" />
+              <span className="relative z-10 font-sans text-xs sm:text-sm font-medium tracking-[0.35em] uppercase">
+                INSTAGRAM
+              </span>
+            </a>
+          </div>
 
           {/* Instagram Handle Subtext */}
           <p

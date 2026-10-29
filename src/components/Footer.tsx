@@ -1,16 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
   return (
     <footer className="relative w-full border-t border-[#C9A66B]/15 bg-[#050505] py-16 sm:py-20 px-6 sm:px-12 text-center select-none overflow-hidden">
       <div className="max-w-4xl mx-auto flex flex-col items-center space-y-6">
         {/* Subtle Crescent Mark */}
-        <div className="w-4 h-4 opacity-70 mb-2">
+        <div className="w-5 h-5 opacity-80 mb-2">
           <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M50 8 A42 42 0 1 0 85 75 A34 34 0 1 1 50 8 Z"
-              fill="#C9A66B"
-            />
+            <mask id="footerMoonMask">
+              <rect width="100" height="100" fill="#000" />
+              <circle cx="50" cy="50" r="40" fill="#fff" />
+              <circle cx="60" cy="50" r="37.2" fill="#000" />
+            </mask>
+            <circle cx="50" cy="50" r="40" fill="#C9A66B" mask="url(#footerMoonMask)" />
           </svg>
         </div>
 
@@ -37,18 +40,33 @@ export const Footer: React.FC = () => {
         {/* Divider */}
         <div className="w-16 h-[1px] bg-[#C9A66B]/25 my-4" />
 
-        {/* Instagram & Copyright */}
+        {/* Navigation, Instagram & Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between w-full pt-4 gap-4 sm:gap-0 text-[10px] sm:text-[11px] font-sans tracking-[0.35em] text-[#89847C]/70 uppercase">
-          <a
-            href="https://www.instagram.com/noir.chd/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[#C9A66B] transition-colors duration-300"
-          >
-            Instagram: @noir.chd
-          </a>
-          <span>&copy; 2026 NOIR CHD</span>
+          <div className="flex items-center gap-6">
+            <Link to="/register" className="hover:text-[#C9A66B] transition-colors duration-300">
+              Guest Registration
+            </Link>
+            <Link to="/admin/login" className="hover:text-[#C9A66B] transition-colors duration-300 opacity-60 hover:opacity-100">
+              Admin Portal
+            </Link>
+          </div>
+          <div className="flex items-center gap-6">
+            <a
+              href="https://www.instagram.com/noir.chd/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#C9A66B] transition-colors duration-300"
+            >
+              @noir.chd
+            </a>
+            <span>&copy; 2026 NOIR CHD</span>
+          </div>
         </div>
+
+        {/* Zero Tolerance Drug Policy Notice in Small Words at End of Website */}
+        <p className="text-[9px] tracking-[0.28em] text-[#89847C]/50 uppercase pt-2">
+          Strict Zero-Tolerance Drug Policy Enforced • Strictly 21+ • Right of Admission Reserved
+        </p>
       </div>
     </footer>
   );
