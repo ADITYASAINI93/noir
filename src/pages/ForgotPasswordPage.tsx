@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Mail, AlertCircle, ArrowLeft, Loader2, CheckCircle2, KeyRound } from 'lucide-react';
+import { Mail, AlertCircle, Loader2, CheckCircle2, KeyRound } from 'lucide-react';
+import { BackButton } from '../components/BackButton';
 import { CrescentMoon } from '../components/CrescentMoon';
 import { FilmGrain } from '../components/FilmGrain';
 
@@ -41,63 +42,57 @@ export const ForgotPasswordPage: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#050505] text-[#F4EFE5] selection:bg-[#C9A66B]/30 selection:text-[#F4EFE5] overflow-x-hidden flex flex-col justify-between py-10 px-4 sm:px-8">
+    <div className="relative min-h-screen bg-[#08090B] text-[#F2F0EB] selection:bg-[#C6CDD5]/30 selection:text-[#FFFFFF] overflow-x-hidden flex flex-col justify-between py-10 px-4 sm:px-8">
       <FilmGrain />
 
       {/* Header */}
-      <header className="relative z-20 max-w-4xl mx-auto w-full flex items-center justify-between pb-8 border-b border-[#C9A66B]/15">
-        <Link
-          to="/signin"
-          className="group flex items-center gap-2 text-xs font-sans tracking-[0.3em] uppercase text-[#89847C] hover:text-[#C9A66B] transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-          <span>Back to Sign In</span>
-        </Link>
+      <header className="relative z-20 max-w-4xl mx-auto w-full flex items-center justify-between pb-8 border-b border-[#343A43]">
+        <BackButton fallbackUrl="/signin" fallbackLabel="Previous Page" />
 
         <Link to="/" className="flex items-baseline gap-1.5 focus:outline-none">
-          <span className="font-editorial text-2xl font-light tracking-[0.25em] text-[#F4EFE5]">
+          <span className="font-display text-2xl font-bold tracking-[0.18em] text-[#F2F0EB]">
             NOIR
           </span>
-          <span className="font-sans text-[10px] font-normal tracking-[0.45em] text-[#C9A66B]">
-            CHD
+          <span className="font-display text-[10px] font-bold tracking-[0.4em] text-[#C6CDD5]">
+            EVENTS
           </span>
         </Link>
       </header>
 
       {/* Main Card */}
       <main className="relative z-10 max-w-md mx-auto w-full my-auto">
-        <div className="bg-[#0E0E0E]/95 border border-[#C9A66B]/30 rounded-3xl p-6 sm:p-10 shadow-[0_25px_70px_rgba(0,0,0,0.95)] backdrop-blur-xl">
+        <div className="bg-[#17191E] border border-[#343A43] hover:border-[#7B8999] rounded-3xl p-6 sm:p-10 shadow-[0_25px_70px_rgba(0,0,0,0.95)] backdrop-blur-xl transition-colors">
           <div className="flex flex-col items-center text-center mb-8">
             <div className="mb-2">
               <CrescentMoon size={60} glowIntensity={0.8} />
             </div>
-            <h1 className="font-editorial text-2xl sm:text-3xl font-light tracking-[0.2em] text-[#F4EFE5] uppercase">
+            <h1 className="font-display text-2xl sm:text-3xl font-bold tracking-[0.15em] text-[#F2F0EB] uppercase">
               PASSWORD RECOVERY
             </h1>
-            <div className="w-12 h-[1px] bg-gradient-to-r from-transparent via-[#C9A66B] to-transparent my-3" />
-            <p className="font-sans text-[11px] tracking-[0.25em] text-[#89847C] uppercase">
+            <div className="w-12 h-[1px] bg-gradient-to-r from-transparent via-[#C6CDD5] to-transparent my-3" />
+            <p className="font-display text-[11px] tracking-[0.25em] text-[#7B8999] uppercase">
               Reset Your Credentials
             </p>
           </div>
 
           {submitted ? (
             <div className="text-center space-y-5 py-2">
-              <div className="w-14 h-14 mx-auto rounded-full bg-[#C9A66B]/15 border border-[#C9A66B]/40 flex items-center justify-center text-[#C9A66B]">
+              <div className="w-14 h-14 mx-auto rounded-full bg-[#17191E] border border-[#343A43] flex items-center justify-center text-[#C6CDD5] shadow-[0_0_20px_rgba(198,205,213,0.2)]">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
-              <h2 className="font-editorial text-2xl text-[#F4EFE5] tracking-wide">
+              <h2 className="font-display text-2xl text-[#F2F0EB] font-bold tracking-wide">
                 Recovery Link Dispatched
               </h2>
-              <p className="text-xs text-[#89847C] leading-relaxed">
-                If an account exists for <strong className="text-[#F4EFE5]">{email}</strong>, you will receive password reset instructions.
+              <p className="text-xs text-[#7B8999] leading-relaxed">
+                If an account exists for <strong className="text-[#F2F0EB]">{email}</strong>, you will receive password reset instructions.
               </p>
-              <div className="p-3.5 rounded-xl bg-[#050505] border border-[#C9A66B]/20 text-[11px] text-[#89847C] text-left leading-relaxed">
-                <span className="text-[#C9A66B] font-semibold block mb-1">Notice on Email Delivery:</span>
+              <div className="p-3.5 rounded-xl bg-[#08090B] border border-[#343A43] text-[11px] text-[#7B8999] text-left leading-relaxed">
+                <span className="text-[#C6CDD5] font-semibold block mb-1">Notice on Email Delivery:</span>
                 Password reset emails require an active SMTP mail provider configured in your Supabase project settings under <strong>Authentication &gt; Email</strong>.
               </div>
               <Link
                 to="/signin"
-                className="inline-block px-6 py-2.5 rounded-xl bg-[#C9A66B] text-[#050505] text-xs uppercase tracking-wider font-semibold"
+                className="inline-block px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#C6CDD5] via-[#E2E6EA] to-[#C6CDD5] text-[#08090B] text-xs font-display uppercase tracking-wider font-bold shadow-[0_0_20px_rgba(198,205,213,0.3)] hover:brightness-110"
               >
                 Return to Sign In
               </Link>
@@ -115,46 +110,49 @@ export const ForgotPasswordPage: React.FC = () => {
                 <div>
                   <label
                     htmlFor="recovery_email"
-                    className="block font-sans text-[11px] uppercase tracking-[0.25em] text-[#C9A66B] mb-1.5"
+                    className="block font-display text-[11px] uppercase tracking-[0.22em] text-[#C6CDD5] mb-1.5 font-semibold"
                   >
                     Account Email Address
                   </label>
                   <div className="relative">
                     <input
                       id="recovery_email"
+                      name="email"
                       type="email"
+                      autoComplete="email"
                       required
+                      disabled={loading}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="you@example.com"
-                      className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#050505] border border-[#C9A66B]/25 focus:border-[#C9A66B] focus:ring-1 focus:ring-[#C9A66B]/40 outline-none text-[#F4EFE5] placeholder-[#89847C]/40 text-sm transition-all duration-300"
+                      className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#08090B] border border-[#343A43] focus:border-[#C6CDD5] outline-none text-[#F2F0EB] placeholder-[#7B8999]/50 text-sm transition-all duration-300 disabled:opacity-50"
                     />
-                    <Mail className="w-4 h-4 text-[#89847C] absolute left-4 top-1/2 -translate-y-1/2" />
+                    <Mail className="w-4 h-4 text-[#7B8999] absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full mt-3 py-3.5 rounded-xl border border-[#C9A66B]/60 bg-gradient-to-r from-[#DFBE86] via-[#C9A66B] to-[#A8874F] text-[#050505] font-sans text-xs uppercase tracking-[0.3em] font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(201,166,107,0.2)] hover:opacity-95"
+                  className="w-full mt-3 py-3.5 rounded-xl bg-gradient-to-r from-[#C6CDD5] via-[#E2E6EA] to-[#C6CDD5] hover:brightness-110 text-[#08090B] font-display text-xs uppercase tracking-[0.25em] font-bold transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_25px_rgba(198,205,213,0.3)]"
                 >
                   {loading ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin text-[#050505]" />
+                      <Loader2 className="w-4 h-4 animate-spin text-[#08090B]" />
                       <span>Transmitting Link...</span>
                     </>
                   ) : (
                     <>
-                      <KeyRound className="w-4 h-4 text-[#050505]" />
+                      <KeyRound className="w-4 h-4 text-[#08090B]" />
                       <span>Send Recovery Instructions</span>
                     </>
                   )}
                 </button>
               </form>
 
-              <div className="mt-8 pt-6 border-t border-[#C9A66B]/15 text-center text-xs text-[#89847C]">
+              <div className="mt-8 pt-6 border-t border-[#343A43] text-center text-xs text-[#7B8999]">
                 <span>Remembered your password? </span>
-                <Link to="/signin" className="text-[#C9A66B] hover:text-[#DFBE86] font-medium transition-colors">
+                <Link to="/signin" className="text-[#C6CDD5] hover:text-[#FFFFFF] font-display font-semibold transition-colors">
                   Sign In here
                 </Link>
               </div>
@@ -164,9 +162,9 @@ export const ForgotPasswordPage: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 max-w-4xl mx-auto w-full pt-8 border-t border-[#C9A66B]/15 text-center">
-        <p className="font-sans text-[10px] tracking-[0.3em] uppercase text-[#89847C]">
-          NOIR CHD • ACCOUNT RECOVERY
+      <footer className="relative z-10 max-w-4xl mx-auto w-full pt-8 border-t border-[#343A43] text-center">
+        <p className="font-display text-[10px] tracking-[0.3em] uppercase text-[#7B8999]">
+          OBSIDIAN • ACCOUNT RECOVERY • CHANDIGARH, INDIA
         </p>
       </footer>
     </div>

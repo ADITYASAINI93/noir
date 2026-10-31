@@ -70,7 +70,7 @@ export const SceneDarkness: React.FC = () => {
     <section
       ref={sectionRef}
       id="scene-02"
-      className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 sm:px-12 py-32 overflow-hidden bg-gradient-to-b from-[#050505] via-[#0E0E0E] to-[#050505]"
+      className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 sm:px-12 py-32 overflow-hidden bg-gradient-to-b from-[#0A0A0A] via-[#111318] to-[#0A0A0A]"
     >
       {/* Volumetric Champagne-Gold Light Ray */}
       <div
@@ -82,24 +82,24 @@ export const SceneDarkness: React.FC = () => {
       {/* Abstract dark metallic reflective plane */}
       <div
         ref={metallicSurfaceRef}
-        className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-[350px] bg-gradient-to-t from-[#C9A66B]/[0.03] to-transparent blur-3xl opacity-30"
+        className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-[350px] bg-gradient-to-t from-[#007BA7]/[0.03] to-transparent blur-3xl opacity-30"
         aria-hidden="true"
       />
 
       {/* Chapter Marker */}
       <div className="relative z-10 mb-8 sm:mb-12 flex items-center gap-4">
-        <span className="w-6 sm:w-10 h-[1px] bg-[#C9A66B]/40" />
-        <span className="font-sans text-[10px] sm:text-xs tracking-[0.5em] text-[#C9A66B] uppercase font-light">
+        <span className="w-6 sm:w-10 h-[1px] bg-[#007BA7]/40" />
+        <span className="font-sans text-[10px] sm:text-xs tracking-[0.5em] text-[#007BA7] uppercase font-light">
           PROLOGUE
         </span>
-        <span className="w-6 sm:w-10 h-[1px] bg-[#C9A66B]/40" />
+        <span className="w-6 sm:w-10 h-[1px] bg-[#007BA7]/40" />
       </div>
 
       {/* Large Editorial Statements */}
       <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center space-y-6 sm:space-y-8">
         <h2
           ref={line1Ref}
-          className="font-editorial text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-[#F4EFE5] leading-[1.15] sm:leading-[1.1] tracking-[-0.01em]"
+          className="font-editorial text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-[#F5F5F5] leading-[1.15] sm:leading-[1.1] tracking-[-0.01em]"
         >
           NOT EVERY NIGHT IS MEANT
           <br className="hidden sm:inline" /> TO BE ORDINARY.
@@ -108,7 +108,7 @@ export const SceneDarkness: React.FC = () => {
         {/* Delicate Champagne-Gold Accent Line */}
         <div
           ref={dividerRef}
-          className="w-24 sm:w-36 h-[1px] bg-gradient-to-r from-transparent via-[#C9A66B] to-transparent origin-center my-4"
+          className="w-24 sm:w-36 h-[1px] bg-gradient-to-r from-transparent via-[#007BA7] to-transparent origin-center my-4"
         />
 
         <p
@@ -119,13 +119,13 @@ export const SceneDarkness: React.FC = () => {
         </p>
 
         {/* Ambient Coordinates / Subtext */}
-        <p className="pt-8 sm:pt-12 font-sans text-[11px] sm:text-xs tracking-[0.4em] uppercase text-[#89847C]/70 font-light">
+        <p className="pt-8 sm:pt-12 font-sans text-[11px] sm:text-xs tracking-[0.4em] uppercase text-[#A1A1AA]/70 font-light">
           30.7333° N, 76.7794° E &bull; CHANDIGARH
         </p>
       </div>
 
       {/* Bottom ambient transition mist */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#050505] to-transparent" />
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
     </section>
   );
 };

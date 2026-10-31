@@ -111,7 +111,7 @@ export const SceneArrival: React.FC<SceneArrivalProps> = ({ onEnterScroll }) => 
     <section
       ref={containerRef}
       id="scene-01"
-      className="relative w-full min-h-screen flex flex-col items-center justify-between px-6 py-12 sm:py-16 overflow-hidden bg-[#050505]"
+      className="relative w-full min-h-screen flex flex-col items-center justify-between px-6 py-12 sm:py-16 overflow-hidden bg-[#0A0A0A]"
     >
       {/* Gentle Atmospheric Moonlight Haze */}
       <div
@@ -148,11 +148,11 @@ export const SceneArrival: React.FC<SceneArrivalProps> = ({ onEnterScroll }) => 
           ref={supportingTextRef}
           className="mt-8 sm:mt-10 md:mt-12 flex flex-col items-center gap-2.5 sm:gap-3 text-center"
         >
-          <p className="font-sans text-[11px] sm:text-xs md:text-sm tracking-[0.45em] sm:tracking-[0.6em] text-[#C9A66B] font-light uppercase">
+          <p className="font-sans text-[11px] sm:text-xs md:text-sm tracking-[0.45em] sm:tracking-[0.6em] text-[#007BA7] font-light uppercase">
             CHANDIGARH AFTER DARK
           </p>
-          <div className="w-8 h-[1px] bg-[#C9A66B]/30 my-0.5" />
-          <p className="font-editorial text-lg sm:text-2xl md:text-3xl text-[#F4EFE5]/90 tracking-[0.15em] sm:tracking-[0.2em] font-light italic">
+          <div className="w-8 h-[1px] bg-[#007BA7]/30 my-0.5" />
+          <p className="font-editorial text-lg sm:text-2xl md:text-3xl text-[#F5F5F5]/90 tracking-[0.15em] sm:tracking-[0.2em] font-light italic">
             SOMETHING IS COMING.
           </p>
         </div>
@@ -164,12 +164,12 @@ export const SceneArrival: React.FC<SceneArrivalProps> = ({ onEnterScroll }) => 
         className="relative z-20 flex flex-col items-center gap-3 cursor-pointer pt-6"
         onClick={onEnterScroll}
       >
-        <span className="font-sans text-[10px] tracking-[0.45em] text-[#89847C] uppercase hover:text-[#C9A66B] transition-colors duration-300">
+        <span className="font-sans text-[10px] tracking-[0.45em] text-[#A1A1AA] uppercase hover:text-[#007BA7] transition-colors duration-300">
           SCROLL TO ENTER
         </span>
         {/* Thin vertical gold line that gently pulses and travels downward */}
-        <div className="relative w-[1px] h-14 bg-[#C9A66B]/20 overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1/2 bg-[#C9A66B] animate-scroll-line" />
+        <div className="relative w-[1px] h-14 bg-[#007BA7]/20 overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1/2 bg-[#007BA7] animate-scroll-line" />
         </div>
       </div>
     </section>

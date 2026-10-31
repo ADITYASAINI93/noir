@@ -1,10 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { SiteSettingsProvider } from './contexts/SiteSettingsContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { ScrollToTop } from './components/ScrollToTop';
 import { HomePage } from './pages/HomePage';
-import { RegisterPage } from './pages/RegisterPage';
+import { AboutPage } from './pages/AboutPage';
+import { ContactPage } from './pages/ContactPage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { TermsPage } from './pages/TermsPage';
 import { SignInPage } from './pages/SignInPage';
 import { SignUpPage } from './pages/SignUpPage';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
@@ -17,13 +21,20 @@ export const App: React.FC = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <AuthProvider>
-        <Routes>
+      <SiteSettingsProvider>
+        <AuthProvider>
+          <Routes>
           {/* Public Experience Homepage */}
           <Route path="/" element={<HomePage />} />
 
-          {/* Public Guest Registration */}
-          <Route path="/register" element={<RegisterPage />} />
+          {/* Editorial Brand Pages */}
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+
+          {/* Redirect deprecated registration path to signup */}
+          <Route path="/register" element={<Navigate to="/signup" replace />} />
 
           {/* Guest Sign In */}
           <Route path="/signin" element={<SignInPage />} />
@@ -56,7 +67,8 @@ export const App: React.FC = () => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
-    </BrowserRouter>
+    </SiteSettingsProvider>
+  </BrowserRouter>
   );
 };
 

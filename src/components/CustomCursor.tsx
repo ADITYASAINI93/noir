@@ -66,7 +66,7 @@ export const CustomCursor: React.FC = () => {
 
   return (
     <>
-      {/* Outer soft ambient aura */}
+      {/* Outer soft ambient aura in Emerald & Mint */}
       <div
         className={`pointer-events-none fixed z-50 rounded-full transition-opacity duration-300 ${
           isVisible ? 'opacity-100' : 'opacity-0'
@@ -74,24 +74,27 @@ export const CustomCursor: React.FC = () => {
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
-          transform: `translate(-50%, -50%) scale(${isPointer ? 1.7 : 1})`,
-          width: isPointer ? '48px' : '36px',
-          height: isPointer ? '48px' : '36px',
-          border: '1px solid rgba(201, 166, 107, 0.45)',
-          background: 'radial-gradient(circle, rgba(201, 166, 107, 0.12) 0%, rgba(201, 166, 107, 0) 70%)',
+          transform: `translate(-50%, -50%) scale(${isPointer ? 1.5 : 1})`,
+          width: isPointer ? '42px' : '30px',
+          height: isPointer ? '42px' : '30px',
+          border: isPointer ? '1px solid rgba(0, 240, 160, 0.7)' : '1px solid rgba(5, 211, 138, 0.35)',
+          background: isPointer
+            ? 'radial-gradient(circle, rgba(0, 240, 160, 0.18) 0%, rgba(5, 211, 138, 0) 70%)'
+            : 'radial-gradient(circle, rgba(5, 211, 138, 0.08) 0%, rgba(5, 211, 138, 0) 70%)',
           transition: 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), width 0.25s, height 0.25s, border-color 0.25s',
         }}
       />
       {/* Precision core dot */}
       <div
-        className={`pointer-events-none fixed z-50 h-1.5 w-1.5 rounded-full bg-[#C9A66B] transition-opacity duration-200 ${
+        className={`pointer-events-none fixed z-50 h-1.5 w-1.5 rounded-full transition-opacity duration-200 ${
           isVisible ? 'opacity-90' : 'opacity-0'
         }`}
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
           transform: 'translate(-50%, -50%)',
-          boxShadow: '0 0 10px rgba(201, 166, 107, 0.8)',
+          backgroundColor: isPointer ? '#00F0A0' : '#05D38A',
+          boxShadow: isPointer ? '0 0 10px rgba(0, 240, 160, 0.9)' : '0 0 8px rgba(5, 211, 138, 0.7)',
         }}
       />
     </>

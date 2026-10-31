@@ -75,7 +75,7 @@ export const SceneFinalReveal: React.FC = () => {
     <section
       ref={containerRef}
       id="scene-05"
-      className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 py-28 sm:py-36 overflow-hidden bg-[#050505]"
+      className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 py-28 sm:py-36 overflow-hidden bg-[#0A0A0A]"
     >
       {/* Luxury Vignette & Soft Moon Corona */}
       <div className="pointer-events-none absolute inset-0 bg-radial-gradient opacity-60" />
@@ -100,7 +100,7 @@ export const SceneFinalReveal: React.FC = () => {
 
         {/* COMING SOON Announcement */}
         <div ref={comingSoonRef} className="mb-4 sm:mb-5">
-          <h2 className="font-editorial text-3xl sm:text-5xl md:text-6xl font-light text-[#F4EFE5] uppercase tracking-[0.5em] sm:tracking-[0.65em] pl-[0.5em]">
+          <h2 className="font-editorial text-3xl sm:text-5xl md:text-6xl font-light text-[#F5F5F5] uppercase tracking-[0.5em] sm:tracking-[0.65em] pl-[0.5em]">
             COMING SOON.
           </h2>
         </div>
@@ -110,11 +110,11 @@ export const SceneFinalReveal: React.FC = () => {
           ref={dateLocationRef}
           className="flex flex-col items-center gap-2 mb-12 sm:mb-14"
         >
-          <div className="w-10 h-[1px] bg-[#C9A66B]/40 mb-1" />
-          <p className="font-sans text-xs sm:text-sm tracking-[0.55em] text-[#C9A66B] font-light uppercase pl-[0.55em]">
+          <div className="w-10 h-[1px] bg-[#007BA7]/40 mb-1" />
+          <p className="font-sans text-xs sm:text-sm tracking-[0.55em] text-[#007BA7] font-light uppercase pl-[0.55em]">
             DECEMBER 2026
           </p>
-          <p className="font-sans text-[11px] sm:text-xs tracking-[0.45em] text-[#89847C] font-light uppercase pl-[0.45em]">
+          <p className="font-sans text-[11px] sm:text-xs tracking-[0.45em] text-[#A1A1AA] font-light uppercase pl-[0.45em]">
             CHANDIGARH, INDIA
           </p>
         </div>
@@ -122,13 +122,13 @@ export const SceneFinalReveal: React.FC = () => {
         {/* Luxury CTA Buttons: REGISTER & FOLLOW THE UNKNOWN */}
         <div className="flex flex-col items-center gap-4">
           <div className="flex flex-col sm:flex-row items-center gap-4">
-            {/* Primary Action: Guest Registration */}
+            {/* Primary Action: Member Account */}
             <Link
-              to="/register"
-              className="group relative inline-flex items-center gap-3 px-8 sm:px-10 py-4 rounded-full border border-[#C9A66B] bg-[#C9A66B] text-[#050505] hover:bg-[#DFBE86] transition-all duration-300 shadow-[0_0_25px_rgba(201,166,107,0.3)] font-sans text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase"
+              to="/signup"
+              className="group relative inline-flex items-center gap-3 px-8 sm:px-10 py-4 rounded-full border border-[#007BA7] bg-[#007BA7] text-[#0A0A0A] hover:bg-[#FF2D95] transition-all duration-300 shadow-[0_0_25px_rgba(201,166,107,0.3)] font-sans text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase"
             >
-              <Sparkles className="w-4 h-4 text-[#050505]" />
-              <span>REQUEST GUEST ACCESS</span>
+              <Sparkles className="w-4 h-4 text-[#0A0A0A]" />
+              <span>CREATE ACCOUNT</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
 
@@ -138,10 +138,10 @@ export const SceneFinalReveal: React.FC = () => {
               href="https://www.instagram.com/noir.chd/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex items-center gap-3 px-8 sm:px-10 py-4 rounded-full border border-[#C9A66B]/50 hover:border-[#C9A66B] bg-[#0E0E0E]/80 backdrop-blur-sm text-[#F4EFE5] hover:text-[#050505] transition-all duration-500 ease-out overflow-hidden gold-glow-subtle gold-glow-hover"
+              className="group relative inline-flex items-center gap-3 px-8 sm:px-10 py-4 rounded-full border border-[#007BA7]/50 hover:border-[#007BA7] bg-[#111318]/80 backdrop-blur-sm text-[#F5F5F5] hover:text-[#0A0A0A] transition-all duration-500 ease-out overflow-hidden gold-glow-subtle gold-glow-hover"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-[#DFBE86] via-[#C9A66B] to-[#A8874F] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
-              <Instagram className="relative z-10 w-4 h-4 text-[#C9A66B] group-hover:text-[#050505] transition-colors duration-500" />
+              <span className="absolute inset-0 bg-gradient-to-r from-[#FF2D95] via-[#007BA7] to-[#A8874F] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
+              <Instagram className="relative z-10 w-4 h-4 text-[#007BA7] group-hover:text-[#0A0A0A] transition-colors duration-500" />
               <span className="relative z-10 font-sans text-xs sm:text-sm font-medium tracking-[0.35em] uppercase">
                 INSTAGRAM
               </span>
@@ -151,7 +151,7 @@ export const SceneFinalReveal: React.FC = () => {
           {/* Instagram Handle Subtext */}
           <p
             ref={handleRef}
-            className="font-sans text-xs tracking-[0.45em] text-[#89847C] font-light uppercase pt-1"
+            className="font-sans text-xs tracking-[0.45em] text-[#A1A1AA] font-light uppercase pt-1"
           >
             @NOIR.CHD
           </p>

@@ -77,7 +77,7 @@ export const SceneAnticipation: React.FC = () => {
     <section
       ref={containerRef}
       id="scene-04"
-      className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 sm:px-12 py-36 overflow-hidden bg-[#050505]"
+      className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 sm:px-12 py-36 overflow-hidden bg-[#0A0A0A]"
     >
       {/* Horizontal Champagne-Gold Laser / Light Beam */}
       <div
@@ -89,7 +89,7 @@ export const SceneAnticipation: React.FC = () => {
       {/* Abstract Nightclub Lighting: Slow undulating midnight glow */}
       <div
         ref={clubAuraRef}
-        className="pointer-events-none absolute w-[600px] sm:w-[900px] h-[600px] sm:h-[900px] rounded-full bg-gradient-to-tr from-[#C9A66B]/[0.06] via-[#A8874F]/[0.03] to-transparent blur-[120px] opacity-0 animate-pulse-subtle"
+        className="pointer-events-none absolute w-[600px] sm:w-[900px] h-[600px] sm:h-[900px] rounded-full bg-gradient-to-tr from-[#007BA7]/[0.06] via-[#A8874F]/[0.03] to-transparent blur-[120px] opacity-0 animate-pulse-subtle"
         aria-hidden="true"
       />
 
@@ -98,7 +98,7 @@ export const SceneAnticipation: React.FC = () => {
         {/* Small Editorial Label */}
         <p
           ref={labelRef}
-          className="font-sans text-[10px] sm:text-xs md:text-sm tracking-[0.55em] sm:tracking-[0.65em] uppercase text-[#C9A66B] font-medium"
+          className="font-sans text-[10px] sm:text-xs md:text-sm tracking-[0.55em] sm:tracking-[0.65em] uppercase text-[#007BA7] font-medium"
         >
           AN EXPERIENCE YET TO BE REVEALED
         </p>
@@ -108,7 +108,7 @@ export const SceneAnticipation: React.FC = () => {
           {/* First Line: Warm Ivory */}
           <h2
             ref={line1Ref}
-            className="font-editorial text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-light text-[#F4EFE5] leading-[0.95] tracking-tight uppercase"
+            className="font-editorial text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-light text-[#F5F5F5] leading-[0.95] tracking-tight uppercase"
           >
             GOOD TASTE.
           </h2>
@@ -124,8 +124,8 @@ export const SceneAnticipation: React.FC = () => {
 
         {/* Minimal Supporting Copy */}
         <div ref={subCopyRef} className="pt-6 sm:pt-10 flex flex-col items-center gap-4">
-          <div className="w-12 h-[1px] bg-[#C9A66B]/30" />
-          <p className="font-editorial text-xl sm:text-2xl md:text-3xl text-[#F4EFE5]/80 font-light italic tracking-wide max-w-xl">
+          <div className="w-12 h-[1px] bg-[#007BA7]/30" />
+          <p className="font-editorial text-xl sm:text-2xl md:text-3xl text-[#F5F5F5]/80 font-light italic tracking-wide max-w-xl">
             &ldquo;Chandigarh, something different is on its way.&rdquo;
           </p>
         </div>

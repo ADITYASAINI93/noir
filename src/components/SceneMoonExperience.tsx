@@ -121,12 +121,12 @@ export const SceneMoonExperience: React.FC = () => {
     <div
       ref={containerRef}
       id="scene-03"
-      className="relative w-full bg-[#050505] selection:bg-[#C9A66B]/30"
+      className="relative w-full bg-[#0A0A0A] selection:bg-[#007BA7]/30"
       style={{ height: '320vh' }}
     >
       <div
         ref={stickyRef}
-        className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center bg-[#050505]"
+        className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center bg-[#0A0A0A]"
       >
         {/* Soft Volumetric Background Corona Bloom */}
         <div
@@ -156,13 +156,13 @@ export const SceneMoonExperience: React.FC = () => {
           ref={text1Ref}
           className="absolute z-20 max-w-5xl px-6 text-center sm:text-left sm:left-[12%] pointer-events-none select-none"
         >
-          <span className="font-sans text-[10px] sm:text-xs tracking-[0.6em] text-[#C9A66B] uppercase block mb-3 font-light">
+          <span className="font-sans text-[10px] sm:text-xs tracking-[0.6em] text-[#007BA7] uppercase block mb-3 font-light">
             ACT I &bull; THE WITCHING HOUR
           </span>
-          <h2 className="font-editorial text-5xl sm:text-7xl md:text-8xl lg:text-[9.5rem] font-light text-[#F4EFE5] leading-[0.95] tracking-tight">
+          <h2 className="font-editorial text-5xl sm:text-7xl md:text-8xl lg:text-[9.5rem] font-light text-[#F5F5F5] leading-[0.95] tracking-tight">
             THE CITY
             <br />
-            <span className="italic font-light text-[#DFBE86]">SLEEPS.</span>
+            <span className="italic font-light text-[#FF2D95]">SLEEPS.</span>
           </h2>
         </div>
 
@@ -171,23 +171,23 @@ export const SceneMoonExperience: React.FC = () => {
           ref={text2Ref}
           className="absolute z-20 max-w-5xl px-6 text-center sm:text-right sm:right-[12%] pointer-events-none select-none"
         >
-          <span className="font-sans text-[10px] sm:text-xs tracking-[0.6em] text-[#C9A66B] uppercase block mb-3 font-light">
+          <span className="font-sans text-[10px] sm:text-xs tracking-[0.6em] text-[#007BA7] uppercase block mb-3 font-light">
             ACT II &bull; THE REIGN
           </span>
           <h2 className="font-editorial text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] font-light text-gold-pure leading-[0.9] tracking-tight">
             WE
             <br />
-            <span className="italic font-light text-[#F4EFE5] gold-text-glow">BEGIN.</span>
+            <span className="italic font-light text-[#F5F5F5] gold-text-glow">BEGIN.</span>
           </h2>
-          <p className="mt-6 font-sans text-xs sm:text-sm tracking-[0.45em] uppercase text-[#89847C] font-light">
+          <p className="mt-6 font-sans text-xs sm:text-sm tracking-[0.45em] uppercase text-[#A1A1AA] font-light">
             WHERE RESTRAINT GIVES WAY TO DESIRE
           </p>
         </div>
 
         {/* Scene progress indicator on the right edge */}
-        <div className="absolute right-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-3 text-[9px] font-sans tracking-[0.3em] text-[#89847C]/50 uppercase">
+        <div className="absolute right-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-3 text-[9px] font-sans tracking-[0.3em] text-[#A1A1AA]/50 uppercase">
           <span>03</span>
-          <div className="w-[1px] h-16 bg-[#C9A66B]/20" />
+          <div className="w-[1px] h-16 bg-[#007BA7]/20" />
           <span>MOON</span>
         </div>
       </div>

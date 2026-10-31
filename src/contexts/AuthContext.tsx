@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, useRef, useCallback } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase, isSupabaseConfigured, REMEMBER_ME_KEY } from '../lib/supabase';
-import { UserProfile } from '../types/registration';
+import { UserProfile, Gender } from '../types/registration';
 
 interface AuthContextType {
   user: User | { id: string; email: string; user_metadata?: Record<string, unknown> } | null;
@@ -24,12 +24,14 @@ interface AuthContextType {
     fullName: string,
     phone?: string,
     instagramHandle?: string,
+    gender?: string,
     rememberMe?: boolean
   ) => Promise<{
     success: boolean;
     sessionAvailable?: boolean;
     error?: string;
   }>;
+  updateProfile: (updates: Partial<UserProfile>) => Promise<UserProfile>;
   resetPasswordForEmail: (email: string) => Promise<{ success: boolean; error?: string }>;
   updateUserPassword: (newPassword: string) => Promise<{ success: boolean; error?: string }>;
   signOut: (isTimeout?: boolean) => Promise<void>;
@@ -72,11 +74,40 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Fetch or create user profile
+  // Helper to extract a standardized UserProfile from a Supabase Auth User object
+  const extractProfileFromUser = (
+    u: User | { id: string; email: string; user_metadata?: Record<string, unknown>; created_at?: string } | null,
+    overrideMeta?: { full_name?: string; phone?: string; instagram_handle?: string; gender?: string }
+  ): UserProfile | null => {
+    if (!u) return null;
+    const meta = (u.user_metadata as Record<string, unknown>) || {};
+    return {
+      id: u.id,
+      email: u.email || '',
+      full_name:
+        overrideMeta?.full_name ||
+        (meta.full_name as string) ||
+        u.email?.split('@')[0] ||
+        'Member',
+      phone: overrideMeta?.phone !== undefined ? overrideMeta.phone : ((meta.phone as string) || null),
+      instagram_handle:
+        overrideMeta?.instagram_handle !== undefined
+          ? overrideMeta.instagram_handle
+          : ((meta.instagram_handle as string) || null),
+      gender:
+        (overrideMeta?.gender as Gender) ||
+        (meta.gender as Gender) ||
+        null,
+      created_at: (u as { created_at?: string })?.created_at,
+      updated_at: (meta.updated_at as string) || new Date().toISOString(),
+    };
+  };
+
+  // Fetch or create user profile - single source of truth is Supabase Auth user_metadata
   const fetchProfile = async (
     userId: string,
     userEmail: string,
-    metadata?: { full_name?: string; phone?: string; instagram_handle?: string }
+    metadata?: { full_name?: string; phone?: string; instagram_handle?: string; gender?: string }
   ): Promise<UserProfile | null> => {
     if (!isSupabaseConfigured) {
       const saved = localStorage.getItem(LOCAL_PROFILE_KEY);
@@ -89,64 +120,48 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       return {
         id: userId,
-        full_name: metadata?.full_name || userEmail.split('@')[0] || 'NOIR Guest',
+        full_name: metadata?.full_name || userEmail.split('@')[0] || 'Member',
         email: userEmail,
         phone: metadata?.phone || null,
         instagram_handle: metadata?.instagram_handle || null,
+        gender: metadata?.gender || null,
       };
+    }
+
+    if (user && user.id === userId) {
+      return extractProfileFromUser(user, metadata);
     }
 
     try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .maybeSingle();
-
-      if (error && error.code !== 'PGRST116') {
-        console.warn('Failed to load profile from database:', error.message);
+      const { data: { user: currentUser } } = await supabase.auth.getUser();
+      if (currentUser) {
+        return extractProfileFromUser(currentUser, metadata);
       }
-
-      if (data) {
-        return data as UserProfile;
-      }
-
-      // If profile does not exist yet but metadata is provided, insert it
-      if (metadata?.full_name) {
-        const insertPayload = {
-          id: userId,
-          full_name: metadata.full_name,
-          email: userEmail,
-          phone: metadata.phone || null,
-          instagram_handle: metadata.instagram_handle || null,
-        };
-
-        const { data: created, error: createErr } = await supabase
-          .from('profiles')
-          .insert([insertPayload])
-          .select('*')
-          .single();
-
-        if (!createErr && created) {
-          return created as UserProfile;
-        }
-      }
-
-      return {
-        id: userId,
-        full_name: userEmail.split('@')[0] || 'NOIR Guest',
-        email: userEmail,
-      };
     } catch (err) {
-      console.warn('Exception loading user profile:', err);
-      return null;
+      console.warn('Notice reading user metadata for profile:', err);
     }
+
+    return {
+      id: userId,
+      email: userEmail,
+      full_name: metadata?.full_name || userEmail.split('@')[0] || 'Member',
+      phone: metadata?.phone || null,
+      instagram_handle: metadata?.instagram_handle || null,
+      gender: metadata?.gender || null,
+    };
   };
 
   const refreshProfile = async () => {
-    if (user?.id && user.email) {
-      const p = await fetchProfile(user.id, user.email);
-      setProfile(p);
+    if (!isSupabaseConfigured) return;
+    try {
+      const { data: { user: freshUser }, error } = await supabase.auth.getUser();
+      if (!error && freshUser) {
+        setUser(freshUser);
+        const p = extractProfileFromUser(freshUser);
+        setProfile(p);
+      }
+    } catch (err) {
+      console.warn('Error refreshing profile:', err);
     }
   };
 
@@ -414,6 +429,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     fullName: string,
     phone?: string,
     instagramHandle?: string,
+    gender?: string,
     rememberMe = true
   ): Promise<{
     success: boolean;
@@ -426,6 +442,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const cleanInsta = instagramHandle?.trim()
       ? (instagramHandle.startsWith('@') ? instagramHandle.trim() : `@${instagramHandle.trim()}`)
       : undefined;
+    const cleanGender = gender || undefined;
 
     try {
       localStorage.setItem(REMEMBER_ME_KEY, rememberMe ? 'true' : 'false');
@@ -445,6 +462,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email: cleanEmail,
         phone: cleanPhone || null,
         instagram_handle: cleanInsta || null,
+        gender: cleanGender || null,
       };
       setUser(localUser);
       setIsAdmin(false);
@@ -463,6 +481,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             full_name: cleanName,
             phone: cleanPhone,
             instagram_handle: cleanInsta,
+            gender: cleanGender,
           },
         },
       });
@@ -492,6 +511,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           full_name: cleanName,
           phone: cleanPhone,
           instagram_handle: cleanInsta,
+          gender: cleanGender,
         });
         setProfile(p);
         return { success: true, sessionAvailable: true };
@@ -506,6 +526,75 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const message = err instanceof Error ? err.message : 'Registration failed unexpectedly.';
       return { success: false, error: message };
     }
+  };
+
+  /**
+   * Update Profile helper
+   */
+  const updateProfile = async (updates: Partial<UserProfile>): Promise<UserProfile> => {
+    if (!user) {
+      throw new Error('Must be signed in to update profile.');
+    }
+
+    if (!isSupabaseConfigured) {
+      const current = profile || {
+        id: user.id,
+        full_name: user.email?.split('@')[0] || 'Guest',
+        email: user.email || '',
+      };
+      const updated: UserProfile = {
+        ...current,
+        ...updates,
+        id: user.id,
+        email: user.email || current.email,
+      };
+      setProfile(updated);
+      localStorage.setItem(LOCAL_PROFILE_KEY, JSON.stringify(updated));
+      return updated;
+    }
+
+    const cleanFullName =
+      updates.full_name !== undefined
+        ? updates.full_name.trim()
+        : profile?.full_name || (user as { user_metadata?: { full_name?: string } })?.user_metadata?.full_name || user.email?.split('@')[0] || 'Member';
+    const cleanPhone =
+      updates.phone !== undefined
+        ? (updates.phone ? updates.phone.trim() : null)
+        : (profile?.phone ?? null);
+    const cleanInstagram =
+      updates.instagram_handle !== undefined 
+        ? (updates.instagram_handle ? (updates.instagram_handle.startsWith('@') ? updates.instagram_handle.trim() : `@${updates.instagram_handle.trim()}`) : null)
+        : (profile?.instagram_handle ?? null);
+    const cleanGender =
+      updates.gender !== undefined
+        ? (updates.gender || null)
+        : (profile?.gender ?? null);
+
+    // Update Supabase Auth user_metadata - authoritative consistent source of truth
+    const { data, error } = await supabase.auth.updateUser({
+      data: {
+        full_name: cleanFullName,
+        phone: cleanPhone,
+        instagram_handle: cleanInstagram,
+        gender: cleanGender,
+        updated_at: new Date().toISOString(),
+      },
+    });
+
+    if (error) {
+      throw new Error(error.message || 'Failed to update profile.');
+    }
+
+    if (!data.user) {
+      throw new Error('Profile update returned no user data.');
+    }
+
+    // Immediately update user and derived profile state
+    setUser(data.user);
+    const updatedProfile = extractProfileFromUser(data.user)!;
+    setProfile(updatedProfile);
+
+    return updatedProfile;
   };
 
   /**
@@ -564,6 +653,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         clearSessionExpiredBanner,
         signInWithPassword,
         signUpWithPassword,
+        updateProfile,
         resetPasswordForEmail,
         updateUserPassword,
         signOut,

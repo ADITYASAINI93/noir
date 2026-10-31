@@ -32,63 +32,62 @@ export const CrescentMoon: React.FC<CrescentMoonProps> = ({
         viewBox="0 0 100 100"
         className="w-full h-full overflow-visible"
         style={{
-          filter: `drop-shadow(0 0 ${24 * glowIntensity}px rgba(201, 166, 107, ${0.45 * glowIntensity}))`,
+          filter: `drop-shadow(0 0 ${24 * glowIntensity}px rgba(0, 123, 167, ${0.55 * glowIntensity})) drop-shadow(0 0 ${12 * glowIntensity}px rgba(255, 45, 149, ${0.35 * glowIntensity}))`,
         }}
       >
         <defs>
           {/* 1. Deep Atmospheric Outer Corona Glow */}
           <radialGradient id={`outerCorona-${id}`} cx="40%" cy="50%" r="58%">
-            <stop offset="0%" stopColor="#DFBE86" stopOpacity={0.42 * glowIntensity} />
-            <stop offset="28%" stopColor="#C9A66B" stopOpacity={0.22 * glowIntensity} />
-            <stop offset="60%" stopColor="#A8874F" stopOpacity={0.06 * glowIntensity} />
-            <stop offset="100%" stopColor="#050505" stopOpacity={0} />
+            <stop offset="0%" stopColor="#00A3D7" stopOpacity={0.45 * glowIntensity} />
+            <stop offset="35%" stopColor="#007BA7" stopOpacity={0.25 * glowIntensity} />
+            <stop offset="65%" stopColor="#FF2D95" stopOpacity={0.12 * glowIntensity} />
+            <stop offset="100%" stopColor="#0A0A0A" stopOpacity={0} />
           </radialGradient>
 
           {/* 2. Soft Rim Volumetric Flare */}
           <radialGradient id={`rimFlare-${id}`} cx="20%" cy="50%" r="35%">
-            <stop offset="0%" stopColor="#FFFFFF" stopOpacity={0.55 * glowIntensity} />
-            <stop offset="45%" stopColor="#DFBE86" stopOpacity={0.25 * glowIntensity} />
-            <stop offset="100%" stopColor="#C9A66B" stopOpacity={0} />
+            <stop offset="0%" stopColor="#FFFFFF" stopOpacity={0.65 * glowIntensity} />
+            <stop offset="45%" stopColor="#00A3D7" stopOpacity={0.35 * glowIntensity} />
+            <stop offset="100%" stopColor="#FF2D95" stopOpacity={0} />
           </radialGradient>
 
-          {/* 3. Liquid Champagne Gold Multi-Stop Satin Gradient */}
+          {/* 3. Cyber-Luxury Multi-Stop Satin Gradient */}
           <linearGradient id={`liquidGold-${id}`} x1="12%" y1="18%" x2="72%" y2="82%">
             <stop offset="0%" stopColor="#FFFFFF" />
-            <stop offset="12%" stopColor="#FAF6EE" />
-            <stop offset="28%" stopColor="#EAD2A8" />
-            <stop offset="52%" stopColor="#D4B279" />
-            <stop offset="76%" stopColor="#B58F50" />
-            <stop offset="92%" stopColor="#8E6C34" />
-            <stop offset="100%" stopColor="#634A20" />
+            <stop offset="18%" stopColor="#CEF0FA" />
+            <stop offset="42%" stopColor="#00A3D7" />
+            <stop offset="68%" stopColor="#007BA7" />
+            <stop offset="85%" stopColor="#C90065" />
+            <stop offset="100%" stopColor="#FF2D95" />
           </linearGradient>
 
           {/* 4. Specular Curved Surface Sheen */}
           <linearGradient id={`specularSheen-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.8" />
-            <stop offset="35%" stopColor="#F4EFE5" stopOpacity="0.4" />
-            <stop offset="70%" stopColor="#C9A66B" stopOpacity="0" />
+            <stop offset="40%" stopColor="#00A3D7" stopOpacity="0.35" />
+            <stop offset="80%" stopColor="#FF2D95" stopOpacity="0" />
           </linearGradient>
 
           {/* 5. Razor-Sharp Outer Edge Highlight */}
           <linearGradient id={`edgeHighlight-${id}`} x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#DFBE86" stopOpacity="0.2" />
-            <stop offset="20%" stopColor="#FFFFFF" stopOpacity="0.9" />
+            <stop offset="0%" stopColor="#00A3D7" stopOpacity="0.3" />
+            <stop offset="25%" stopColor="#FFFFFF" stopOpacity="0.9" />
             <stop offset="50%" stopColor="#FFFFFF" stopOpacity="1" />
-            <stop offset="80%" stopColor="#FFFFFF" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#DFBE86" stopOpacity="0.2" />
+            <stop offset="75%" stopColor="#FF2D95" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#007BA7" stopOpacity="0.3" />
           </linearGradient>
 
           {/* 6. Soft Inner Terminator Shadow Contour */}
           <radialGradient id={`terminatorShadow-${id}`} cx="59%" cy="50%" r="42%">
-            <stop offset="60%" stopColor="#050505" stopOpacity="0" />
-            <stop offset="82%" stopColor="#3B2C16" stopOpacity="0.45" />
-            <stop offset="100%" stopColor="#1E150A" stopOpacity="0.9" />
+            <stop offset="60%" stopColor="#0A0A0A" stopOpacity="0" />
+            <stop offset="85%" stopColor="#0D1118" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#0A0A0A" stopOpacity="0.95" />
           </radialGradient>
 
           {/* 7. Subtle Celestial Dust Texture */}
           <radialGradient id={`stardustGlow-${id}`} cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#C9A66B" stopOpacity="0" />
+            <stop offset="100%" stopColor="#007BA7" stopOpacity="0" />
           </radialGradient>
 
           {/* 
@@ -125,17 +124,17 @@ export const CrescentMoon: React.FC<CrescentMoonProps> = ({
           cy="50"
           r="40"
           fill="none"
-          stroke="#C9A66B"
+          stroke="#00A3D7"
           strokeWidth="0.5"
-          strokeOpacity={0.12 * glowIntensity}
+          strokeOpacity={0.25 * glowIntensity}
           strokeDasharray="1 3"
         />
         <circle
           cx="50"
           cy="50"
           r="39.8"
-          fill="#080705"
-          fillOpacity={0.25}
+          fill="#0A0A0A"
+          fillOpacity={0.3}
         />
 
         {/* --- LAYER 3: The Golden Crescent Body --- */}
@@ -185,7 +184,7 @@ export const CrescentMoon: React.FC<CrescentMoonProps> = ({
           cx="60"
           cy="50"
           r="37.2"
-          stroke="#DFBE86"
+          stroke="#FF2D95"
           strokeWidth="0.45"
           strokeOpacity="0.4"
           fill="none"
